@@ -1,10 +1,9 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
+import axios from 'axios'
 import {FaPlayCircle,FaTimes} from 'react-icons/fa'
 import {GoCheck} from 'react-icons/go'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -14,14 +13,17 @@ import Card from '../components/Card';
 
 
 const Home = () => {
+    const [data1,setData] = useState(null)
+
+    // useEffect(()=>{
+    //     fetchLatestMovies()
+    // },[])
     
       
 
 
   return (
     <>
-
-
 
     {/* Online Streaming */}
     <section className="container mx-auto online  py-10">
