@@ -13,12 +13,16 @@ import Card from '../components/Card';
 import {useDispatch,useSelector} from 'react-redux'
 import { getMovieListLatest, getTVListLatest } from '../store/action/actions';
 import MovieCard from '../components/MovieCard';
+import Header from '../components/Header'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 
-const Home = () => {
+const Home = (props) => {
     const [data1,setData] = useState([]);
     const tv = useSelector(state=> state.movie.tvShows)
     const data = useSelector(state=> state.movie.movies)
+  const imageLink = `https://image.tmdb.org/t/p/w500`
 
     const dispatch = useDispatch()
 
@@ -26,15 +30,57 @@ const Home = () => {
     useEffect(()=>{
        dispatch(getMovieListLatest())
        dispatch(getTVListLatest())
-    },[dispatch])
+    //    setData([...tv.slice(0,7)])
+    },[])
 
-    console.log(tv?.results)
+    // console.log(data1?.results?.slice(0,4))
     
       
-
+    const responsive = {
+        superLargeDesktop: {
+          // the naming can be any, depends on you.
+          breakpoint: { max: 4000, min: 3000 },
+          items: 1
+        },
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 1
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 1
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1
+        }
+      };
 
   return (
     <>
+    <Carousel
+  swipeable={false}
+  draggable={false}
+  showDots={true}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+//   autoPlay={this.props.deviceType !== "mobile" ? true : false}
+  autoPlaySpeed={1000}
+  keyBoardControl={true}
+  customTransition="all 800ms"
+  transitionDuration={800}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  deviceType={props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px"
+>
+{data?.results?.slice(4,12).map((it,index)=>{
+         return <Header it={it} />
+      
+})}
+    </Carousel>
 
     {/* Online Streaming */}
     <section className="container mx-auto online  py-10">
@@ -46,9 +92,6 @@ const Home = () => {
                 {tv?.results?.map((item,index)=>(
                 <Card key={index} item={item}  />
             ))}
-                {/* //  */}
-                {/*  */}
-                
             </div>
     </section>
 
@@ -72,26 +115,7 @@ const Home = () => {
             </div>
     </section>
 
-    {/* <Swiper
     
-    modules={[Navigation, Pagination, Scrollbar, A11y]}
-      spaceBetween={50}
-      slidesPerView={1}
-    //   navigation
-      direction='vertical'
-      pagination={{ clickable: true }}
-    //   scrollbar={{ draggable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
-      className='w-full h-[60vh] bg-emerald-300'
-    >
-      <SwiperSlide  className='w-full h-full bg-emerald-300' >
-        <img src="blob:https://manage.wix.com/7ba5e2ce-d6c0-443f-b7eb-e63cb086d4b7" className='w-full h-full' alt="" />
-      </SwiperSlide>
-      <SwiperSlide  className='w-full h-full bg-emerald-300' >Slide 2</SwiperSlide>
-      <SwiperSlide  className='w-full h-full bg-emerald-300' >Slide 3</SwiperSlide>
-      <SwiperSlide  className='w-full h-full bg-emerald-300' >Slide 4</SwiperSlide>
-    </Swiper> */}
 
     <section className="w-full bg-gray-200 py-28">
         <div className="container mx-auto">

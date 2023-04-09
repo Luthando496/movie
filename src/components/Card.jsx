@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 const Card = ({item}) => {
     // console.log(item)
     const imageLink = `https://image.tmdb.org/t/p/w500`
-    console.log(item.poster_path)
   return (
-    <Link to={`/details/${item.id}`} className="card group relative">
+    <Link to={`/tv/show/${item.id}`} className="card group relative">
         <div className="img-card h-[20rem] overflow-hidden">
             <img src={`${imageLink}${item.backdrop_path}`} alt="photo-white" className='w-full group-hover:scale-[1.7] duration-[900ms]  h-full' />
         </div>

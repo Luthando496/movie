@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
-import { fetchSingleMovie } from '../store/action/actions'
+import { fetchSingleMovie,fetchSingleTV } from '../store/action/actions'
 
 
 
-const Details = () => {
+const TVDetails = () => {
   const dispatch = useDispatch()
   const movie = useSelector(state => state.movie.single)
 
@@ -14,7 +14,7 @@ const Details = () => {
 
 
   useEffect(()=>{
-    dispatch(fetchSingleMovie(id))
+    dispatch(fetchSingleTV(id))
   },[dispatch])
 
   const imageLink = `https://image.tmdb.org/t/p/w500`
@@ -89,7 +89,6 @@ const Details = () => {
 
       <button className="text-xl uppercase bg-black px-6 hover:bg-white hover:border hover:text-black duration-700 py-4 text-white">+ Add Your List</button>
 
-      <h2 className="text-xl font-bold text-rose-800">$ {dollarUSLocale.format(movie?.budget)}</h2>
 
       </div>
       </div>
@@ -129,4 +128,4 @@ const Details = () => {
   )
 }
 
-export default Details
+export default TVDetails
