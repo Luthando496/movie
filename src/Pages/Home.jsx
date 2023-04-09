@@ -16,6 +16,11 @@ import MovieCard from '../components/MovieCard';
 import Header from '../components/Header'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar'
+
+
+
 
 
 const Home = (props) => {
@@ -31,56 +36,43 @@ const Home = (props) => {
        dispatch(getMovieListLatest())
        dispatch(getTVListLatest())
     //    setData([...tv.slice(0,7)])
-    },[])
+    },[dispatch])
 
-    // console.log(data1?.results?.slice(0,4))
-    
-      
-    const responsive = {
-        superLargeDesktop: {
-          // the naming can be any, depends on you.
-          breakpoint: { max: 4000, min: 3000 },
-          items: 1
-        },
-        desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 1
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 1
-        },
-        mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1
-        }
-      };
 
   return (
     <>
-    <Carousel
-  swipeable={false}
-  draggable={false}
-  showDots={true}
-  responsive={responsive}
-  ssr={true} // means to render carousel on server-side.
-  infinite={true}
-//   autoPlay={this.props.deviceType !== "mobile" ? true : false}
-  autoPlaySpeed={1000}
-  keyBoardControl={true}
-  customTransition="all 800ms"
-  transitionDuration={800}
-  containerClass="carousel-container"
-  removeArrowOnDeviceType={["tablet", "mobile"]}
-  deviceType={props.deviceType}
-  dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
->
-{data?.results?.slice(4,12).map((it,index)=>{
-         return <Header it={it} />
+    <Navbar />
+
+    <Swiper
+      // install Swiper modules
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      effect="fade" // sets the effect to coverflow
+        grabCursor="true" // sets grab cursor as the hover cursor over the slides
+        centeredSlides="true" // used to center the active slide
+        spaceBetween={0} // distance between slides in px
+        slidesPerView={1} // number of slides per view
+        loop="true" // sets the slides on a continuous loop
+        pagination={{ clickable: true, dynamicBullets: true }} // allows for pagination bullets to be dynamic and clickable
+        fadeEffect={{
+          rotate: 20, // slide rotation degree
+          stretch: 25, // stretches the space between the slides in px
+          depth: 250, // offsets the depth of neighboring slides
+          modifier: 1, // effect multiplier
+          slideShadows: false, // disables the shadow around the slide container
+        }}
+    //   scrollbar={{ draggable: true }}
+    //   onSwiper={(swiper) => console.log(swiper)}
+    //   onSlideChange={() => console.log('slide change')}
+    >
+{data?.results?.slice(2,9).map((it,index)=>(
+    <SwiperSlide key={index}>
+          <Header key={index} it={it} />
+    </SwiperSlide>
       
-})}
-    </Carousel>
+))}
+    </Swiper>
+
+
 
     {/* Online Streaming */}
     <section className="container mx-auto online  py-10">

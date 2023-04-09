@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
-import { fetchSingleMovie } from '../store/action/actions'
+import { fetchSingleMovie, getRelatedMovies } from '../store/action/actions'
+import MovieCard from '../components/MovieCard'
+import Navbar from '../components/Navbar'
 
 
 
 const Details = () => {
   const dispatch = useDispatch()
   const movie = useSelector(state => state.movie.single)
+  const related = useSelector(state => state.movie.related)
 
   const id = useParams().id
   let dollarUSLocale = Intl.NumberFormat('en-US');
@@ -15,7 +18,8 @@ const Details = () => {
 
   useEffect(()=>{
     dispatch(fetchSingleMovie(id))
-  },[dispatch])
+    dispatch(getRelatedMovies(id))
+  },[dispatch,id])
 
   const imageLink = `https://image.tmdb.org/t/p/w500`
 
@@ -23,18 +27,19 @@ const Details = () => {
 
   return (
     <>
+    <Navbar />
     <section className="w-full min-h-[100vh] py-[7rem] relative" style={{backgroundImage:`linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url(${imageLink}${movie?.backdrop_path})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}} >
     {/* <div className="absolute top-0 left-0 w-full h-full bg-black/70"></div> */}
     <div className="overflow-hidden  w-[80%] mx-auto">
-        <h1 className="text-[6rem] font-bold text-red-600 pr-6">{movie?.title}</h1>
+        <h1 className="text-5xl lg:text-[6rem] font-bold text-red-600 pr-6">{movie?.title}</h1>
 
         <div className="my-12 flex items-center gap-8">
         <div className="flex gap-2">
-        <span className="p-6 border-[4px] text-green-500 relative font-semibold text-xl border-gray-700 rounded-full">5.8</span>
-        <h3 className="text-xl self-center text-white font-thin">IMDB SCORE</h3>
+        <span className="p-6 border-[4px] text-green-500 relative font-semibold text-xl border-gray-700 rounded-full">{Math.round(movie?.vote_average)}</span>
+        <h3 className="text-sm md:text-xl marker:self-center text-white font-thin">IMDB SCORE</h3>
         </div>
 
-        <h3 className="font-bold text-white text-xl">{movie?.release_date}</h3>
+        <h3 className="font-bold text-white text-sm md:text-xl">{movie?.release_date}</h3>
 
         <span className="border border-red-600 text-teal-500 flex gap-2 pl-2 text-md">
           1080
@@ -46,11 +51,11 @@ const Details = () => {
         </div>
 
         <p className="font-light text-xl text-white pr-10">{movie?.overview}</p>
-      <div className="mt-12 flex gap-8 items-center">
+      <div className="mt-12 flex flex-col md:flex-row gap-8 items-center">
 
-      <button className="text-xl uppercase bg-black px-6 hover:bg-white hover:border hover:text-black duration-700 py-4 text-white">+ Add Your List</button>
+      <button className="text-md md:text-xl uppercase bg-black px-6 hover:bg-white hover:border hover:text-black duration-700 py-4 text-white">+ Add Your List</button>
 
-      <h2 className="text-xl font-bold text-rose-800">$ {movie?.budget}</h2>
+      <button className="text-md md:text-xl uppercase bg-black px-6 hover:bg-white hover:border hover:text-black duration-700 py-4 text-white">Movie Budget: ${dollarUSLocale.format(movie?.budget)}</button>
 
       </div>
       </div>
@@ -69,7 +74,7 @@ const Details = () => {
 
         <div className="my-12 flex items-center gap-8">
         <div className="flex gap-2">
-        <span className="p-6 border-[4px] relative font-semibold text-xl border-gray-700 rounded-full">{movie?.vote_average}</span>
+        <span className="p-6 border-[4px] relative font-semibold text-xl border-gray-700 rounded-full">{Math.round(movie?.vote_average)}</span>
         <h3 className="text-xl self-center font-thin">IMDB SCORE</h3>
         </div>
 
@@ -123,6 +128,21 @@ const Details = () => {
 
     </div>
 
+    </section>
+
+    <section className="bg-black  py-[5rem]">
+        <div className="w-[85%] mx-auto">
+
+            <h1 className=" text-[3rem] text-white font-semibold capitalize">Related Movies</h1>
+
+            <div className="my-10 mx-4 md:mx-0 flex flex-col md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {/*  */}
+            {related?.results?.map((item,index)=>(
+                <MovieCard key={index} item={item}  />
+            ))}
+
+            </div>
+            </div>
     </section>
 
     </>

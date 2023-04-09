@@ -11,11 +11,11 @@ import 'swiper/css/scrollbar';
 const Header = ({it}) => {
 
   const imageLink = `https://image.tmdb.org/t/p/w500`
-  console.log(it)
 
   return (
-        <section  key={it.id}  className="w-full min-h-[100vh] py-[7rem] relative" style={{backgroundImage:`linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url(${imageLink}${it?.backdrop_path})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}} >
-    <div className="absolute top-0 left-0 w-full h-full bg-black/70"></div>
+    // <SwiperSlide key={it.id}>
+        <section    className="w-full min-h-[100vh] py-[7rem] relative" style={{backgroundImage:`linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url(${imageLink}${it?.backdrop_path})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}} >
+    <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
     <div className="overflow-hidden  w-[80%] mx-auto">
         <h1 className="text-[6rem] font-bold text-red-600 pr-6">{it?.title}</h1>
 
@@ -32,8 +32,6 @@ const Header = ({it}) => {
           <span className="bg-red-600 h-full px-2 font-bold text-white">HD</span>
         </span>
 
-        {/* <h4 className="text-sky-500 text-xl font-semibold">{it?.genres[0]?.name}, {it?.genres[1]?.name}</h4> */}
-
         </div>
 
         <p className="font-light text-xl text-white pr-10">{it?.overview}</p>
@@ -46,7 +44,8 @@ const Header = ({it}) => {
       </div>
 
 
-         </section>
+        </section>
+    // </SwiperSlide>
 
   )
 }

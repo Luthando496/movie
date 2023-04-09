@@ -2,7 +2,7 @@ import {createSlice,configureStore} from '@reduxjs/toolkit'
 
 
 const moviesSlice =createSlice({
-    initialState:{movies:[],loading:false,error:null,tvShows:null,single:null},
+    initialState:{movies:[],loading:false,error:null,tvShows:null,single:null,related:null},
     name:'movies',
     reducers:{
         fetchMoviesRequest(state){
@@ -13,6 +13,17 @@ const moviesSlice =createSlice({
             state.loading = false;
         },
         fetchMoviesFailure(state,action){
+            state.error = action.payload;
+            state.loading = false;
+        },
+        getRelatedRequest(state){
+            state.loading = true;
+        },
+        getRelated(state,action){
+            state.related = action.payload;
+            state.loading = false;
+        },
+        getRelatedFail(state,action){
             state.error = action.payload;
             state.loading = false;
         },

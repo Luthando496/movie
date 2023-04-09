@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import { fetchSingleMovie,fetchSingleTV } from '../store/action/actions'
+import Navbar from '../components/Navbar'
 
 
 
@@ -23,6 +24,10 @@ const TVDetails = () => {
 
   return (
     <>
+    <Navbar />
+
+
+
     <section className="w-full min-h-[100vh] py-[7rem] relative" style={{backgroundImage:`linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),url(${imageLink}${movie?.backdrop_path})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}} >
     {/* <div className="absolute top-0 left-0 w-full h-full bg-black/70"></div> */}
     <div className="overflow-hidden  w-[80%] mx-auto">
