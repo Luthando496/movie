@@ -105,10 +105,29 @@ export const getRelatedMovies = (id) => {
           
     }
 }
+export const getRelatedTV = (id) => {
+    return async (dispatch) => {
+
+        try{
+
+            dispatch(movieAction.getRelatedRequest())
+
+            
+            const {data} = await axios.get(`https://api.themoviedb.org/3/tv/${id}/similar?api_key=101f6b0d3f203bb147a789c4b2f8345d&language=en-US&page=1`)
+
+            dispatch(movieAction.getRelated(data))
+            
+        }catch(error){
+            console.log(error)
+        }
+
+          
+    }
+}
 
 
 
-export const searchMovies = (search) => {
+export const searchMovies = (search,page=1) => {
     return async (dispatch) => {
 
         try{
@@ -116,7 +135,7 @@ export const searchMovies = (search) => {
             dispatch(movieAction.fetchMoviesRequest())
 
             
-            const {data} = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${search}&api_key=101f6b0d3f203bb147a789c4b2f8345d&language=en-US&page=1&include_adult=false`)
+            const {data} = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${search}&api_key=101f6b0d3f203bb147a789c4b2f8345d&language=en-US&page=${page}&include_adult=false`)
 
             dispatch(movieAction.fetchMoviesSuccess(data))
             
@@ -129,7 +148,7 @@ export const searchMovies = (search) => {
 }
 
 
-export const searchTVShows= (search) => {
+export const searchTVShows= (search,page=1) => {
     return async (dispatch) => {
 
         try{
@@ -137,7 +156,7 @@ export const searchTVShows= (search) => {
             dispatch(movieAction.fetchTVRequest())
 
             
-            const {data} = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${search}&api_key=101f6b0d3f203bb147a789c4b2f8345d&language=en-US&page=1&include_adult=false`)
+            const {data} = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${search}&api_key=101f6b0d3f203bb147a789c4b2f8345d&language=en-US&page=${page}&include_adult=false`)
 
             dispatch(movieAction.fetchTVSuccess(data))
             

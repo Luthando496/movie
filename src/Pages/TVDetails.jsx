@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
-import { fetchSingleMovie,fetchSingleTV } from '../store/action/actions'
+import { fetchSingleTV, getRelatedTV } from '../store/action/actions'
 import Navbar from '../components/Navbar'
+import Card from '../components/Card'
 
 
 
 const TVDetails = () => {
   const dispatch = useDispatch()
   const movie = useSelector(state => state.movie.single)
+  const related = useSelector(state => state.movie.related)
 
   const id = useParams().id
   let dollarUSLocale = Intl.NumberFormat('en-US');
@@ -16,7 +18,8 @@ const TVDetails = () => {
 
   useEffect(()=>{
     dispatch(fetchSingleTV(id))
-  },[dispatch])
+    dispatch(getRelatedTV(id))
+  },[dispatch,id])
 
   const imageLink = `https://image.tmdb.org/t/p/w500`
 
@@ -127,6 +130,21 @@ const TVDetails = () => {
 
     </div>
 
+    </section>
+
+    <section className="bg-black  py-[5rem]">
+        <div className="w-[85%] mx-auto">
+
+            <h1 className=" text-[3rem] text-white font-semibold capitalize">Related TV Shows</h1>
+
+            <div className="my-10 mx-4 md:mx-0 flex flex-col md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {/*  */}
+            {related?.results?.map((item,index)=>(
+                <Card key={index} item={item}  />
+            ))}
+
+            </div>
+            </div>
     </section>
 
     </>

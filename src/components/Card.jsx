@@ -8,7 +8,7 @@ const Card = ({item}) => {
   return (
     <Link to={`/tv/show/${item.id}`} className="card group relative">
         <div className="img-card h-[20rem] overflow-hidden">
-            <img src={`${imageLink}${item.backdrop_path}`} alt="photo-white" className='w-full group-hover:scale-[1.7] duration-[900ms]  h-full' />
+            <img src={`${imageLink}${item.backdrop_path}` || 'https://images.pexels.com/photos/3137890/pexels-photo-3137890.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'} alt="photo-white" className='w-full group-hover:scale-[1.7] duration-[900ms]  h-full' />
         </div>
         <div className="absolute top-0 w-full h-full bg-black/40"></div>
         <div className="absolute bottom-0 py-8 w-full px-6">
