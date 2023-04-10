@@ -1,28 +1,29 @@
 import React,{useEffect, useState} from 'react'
 import Navbar from '../components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchMovies } from '../store/action/actions'
+import { searchMovies, searchTVShows } from '../store/action/actions'
 import MovieCard from '../components/MovieCard'
 import RingLoader from 'react-spinners/RingLoader'
+import Card from '../components/Card'
 
-const Movies = () => {
+
+
+
+const TVSearch = () => {
 
     const [search, setSearch] = useState('')
     const dispatch = useDispatch()
-    const {movies,loading} = useSelector(state => state.movie)
+    const {tvShows,loading} = useSelector(state => state.movie)
 
 
 
     const Submit =(e)=>{
         e.preventDefault();
         console.log(search)
-        dispatch(searchMovies(search))
+        dispatch(searchTVShows(search))
         
 
     }
-
-    
-
   return (
     <>
     <Navbar />
@@ -40,8 +41,8 @@ const Movies = () => {
     {loading ? <RingLoader fill='#023688' loading={loading} size={200} /> :
     (<div className="my-10 w-[90%] mx-auto flex flex-col md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                 {/*  */}
-            {movies?.results?.map((item,index)=>(
-                <MovieCard key={index} item={item}  />
+            {tvShows?.results?.map((item,index)=>(
+                <Card key={index} item={item}  />
             ))}
 
     </div>)}
@@ -52,4 +53,13 @@ const Movies = () => {
   )
 }
 
-export default Movies
+export default TVSearch
+
+
+
+
+
+
+    
+
+    

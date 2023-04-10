@@ -127,3 +127,24 @@ export const searchMovies = (search) => {
           
     }
 }
+
+
+export const searchTVShows= (search) => {
+    return async (dispatch) => {
+
+        try{
+
+            dispatch(movieAction.fetchTVRequest())
+
+            
+            const {data} = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${search}&api_key=101f6b0d3f203bb147a789c4b2f8345d&language=en-US&page=1&include_adult=false`)
+
+            dispatch(movieAction.fetchTVSuccess(data))
+            
+        }catch(error){
+            console.log(error)
+        }
+
+          
+    }
+}
