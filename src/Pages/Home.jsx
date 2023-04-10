@@ -47,6 +47,7 @@ const Home = (props) => {
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       effect="fade" // sets the effect to coverflow
+      navigation
         grabCursor="true" // sets grab cursor as the hover cursor over the slides
         centeredSlides="true" // used to center the active slide
         spaceBetween={0} // distance between slides in px
