@@ -1,14 +1,18 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 
 
 
 
 const MovieCard = ({item}) => {
-
+    const navigate = useNavigate()
     const imageLink = `https://image.tmdb.org/t/p/w500`
+
+    const change = (id)=>{
+      navigate(`/details/${id}`)
+    }
   return (
-    <Link to={`/details/${item.id}`} className="card relative group">
+    <div onClick={()=>change(item.id)}  className="card relative group cursor-pointer">
                     <div className="img-card h-[15rem] overflow-hidden">
                         <img src={`${imageLink}${item.poster_path}`} alt="photo-white" className='h-full group-hover:scale-150 duration-[900ms]  w-full' />
                     </div>
@@ -20,7 +24,7 @@ const MovieCard = ({item}) => {
                     <h4 className="text-xl my-3 text-white font-bold">{item.title}</h4>
                     
 
-            </Link>
+            </div>
   )
 }
 
