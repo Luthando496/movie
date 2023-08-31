@@ -8,7 +8,6 @@ import Movies from './Pages/Movies'
 import TVSearch from './Pages/TVSearch'
 
 
-
 function App() {
 
   return (
